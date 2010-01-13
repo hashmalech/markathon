@@ -1,0 +1,19 @@
+h1. Markathon
+
+p{color:red;font-weight:bold;}. Markathon is far from being complete. Use it with caution!
+
+p. Write HTML in pure Python code. Example:
+
+<pre>from markathon import *
+
+
+print Markathon('html', xmlns="http://www.w3.org/1999/xhtml")(
+    head(
+        meta(content='application/xhtml+xml;charset=utf-8'),
+        title("Ready, steady, GO!")
+    ),
+    body(
+        img(src="test.img", alt="just a test"),
+        h1(_class="Chunk")("Grail")
+    )
+)</pre>
