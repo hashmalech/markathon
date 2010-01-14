@@ -2,35 +2,31 @@ from functools import partial
 
 
 class Markathon(dict):
-    def __init__(self, tag='', *body, **attr):
+    def __init__(self, tag='', *content, **attr):
         self.tag = tag
-        self.body = body
+        self.content = content
         self.update(attr)
 
-    def __call__(self, *body, **attr):
+    def __call__(self, *content, **attr):
+        self.content += content
         self.update(attr)
-        self.body += body
         return self
 
     def __str__(self):
-        dtd = self.get_dtd()
-        body = str().join(str(element) for element in self.body)
-        attr = str().join(' %s="%s"' % (key.strip('_'), value)
+        content_string = str().join(str(element) for element in self.content)
+        attr_string = str().join(' %s="%s"' % (key.strip('_'), value)
                                            for key, value in self.iteritems())
-        if not self.body:
-            return "<%s%s />" % (self.tag, attr)
+        if not self.content:
+            return "<%s%s />" % (self.tag, attr_string)
         else:
-            return "%s<%s%s>%s</%s>" % (dtd, self.tag, attr, body, self.tag)
+            return "<%s%s>%s</%s>" % (
+                              self.tag, attr_string, content_string, self.tag)
 
     __repr__ = __str__
 
-    def get_dtd(self):
-        if self.tag == 'html':
-            return ('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'
-                     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n')
-        else:
-            return str()
 
+DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'
+                      '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
 
 TAGS = """a abbr acronym address area b base bdo big blockquote body br button
 caption cite code col colgroup dd del dfn div dl dt em fieldset form h1 h2 h3
