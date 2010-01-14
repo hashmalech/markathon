@@ -1,7 +1,7 @@
 from functools import partial
 
 
-class Markathon(dict, basestring):
+class Markathon(dict):
     def __init__(self, tag='', *body, **attr):
         self.tag = tag
         self.body = body
@@ -12,19 +12,15 @@ class Markathon(dict, basestring):
         self.body += body
         return self
 
-    def __add__(self, other):
-        return str(self) + str(other)
-
     def __str__(self):
         dtd = self.get_dtd()
         body = str().join(str(element) for element in self.body)
         attr = str().join(' %s="%s"' % (key.strip('_'), value)
                                            for key, value in self.iteritems())
         if not self.body:
-            return "\n<%s%s />\n" % (self.tag, attr)
+            return "<%s%s />" % (self.tag, attr)
         else:
-            return "\n%s<%s%s>%s</%s>\n" % (
-                                          dtd, self.tag, attr, body, self.tag)
+            return "%s<%s%s>%s</%s>" % (dtd, self.tag, attr, body, self.tag)
 
     __repr__ = __str__
 
