@@ -17,9 +17,11 @@ class XHTML(Markathon):
 
 
 XHTML.register_tags(globals(), TAGS)
+html = html(xmlns="http://www.w3.org/1999/xhtml")
+
 
 if __name__ == '__main__':
-    print html(xmlns="http://www.w3.org/1999/xhtml")(
+    print html(
         head(
             meta(content='application/xhtml+xml;charset=utf-8'),
             title("Holy smokes!")
