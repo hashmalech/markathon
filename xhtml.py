@@ -1,5 +1,6 @@
 from markathon import Markathon
 
+
 TAGS = """a abbr acronym address area b base bdo big blockquote body br button
 caption cite code col colgroup dd del dfn div dl dt em fieldset form h1 h2 h3
 h4 h5 h6 head hr html i img input ins kbd label legend li link map meta
@@ -24,11 +25,11 @@ if __name__ == '__main__':
     print html(
         head(
             meta(content='application/xhtml+xml;charset=utf-8'),
-            title("Holy smokes!")
+            title("Ready, steady, GO!")
         ),
         body(
             img(src="test.img", alt="just a test"),
             h1(_class="Chunk")("Grail"),
-            p("lorem")
+            p("But seriously, who the hell doesn't hate Lorem Ipsum?")
         )
     )
