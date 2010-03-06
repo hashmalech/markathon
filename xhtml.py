@@ -1,4 +1,4 @@
-from markathon import Markathon
+from markathon import Markathon, partial
 
 
 TAGS = """a abbr acronym address area b base bdo big blockquote body br button
@@ -18,7 +18,7 @@ class XHTML(Markathon):
 
 
 XHTML.register_tags(globals(), TAGS)
-html = html(xmlns="http://www.w3.org/1999/xhtml")
+html = partial(XHTML, 'html', xmlns="http://www.w3.org/1999/xhtml")
 
 
 if __name__ == '__main__':
