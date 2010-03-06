@@ -1,13 +1,5 @@
 from functools import partial
 
-# XHTML tags. Should go to a more appropriate location.
-TAGS = """a abbr acronym address area b base bdo big blockquote body br button
-caption cite code col colgroup dd del dfn div dl dt em fieldset form h1 h2 h3
-h4 h5 h6 head hr html i img input ins kbd label legend li link map meta
-noscript object ol optgroup option p param pre q rb rbc rp rt rtc ruby samp
-script select small span strong style sub sup table tbody td textarea tfoot th
-thead title tr tt ul var""".split()
-
 
 class Markathon(dict, basestring):
     def __init__(self, tag='', *body, **attr):
@@ -25,8 +17,8 @@ class Markathon(dict, basestring):
 
     def __str__(self):
         tag = self.tag
-        bt = self.get_dtd() or '' # before tag
-        at = '' # after tag
+        bt = self.before() or '' # before tag
+        at = self.after() or '' # after tag
         body = ''.join(str(element) for element in self.body)
         attr = ''.join(' %s="%s"' % (key.strip('_'), value)
                         for key, value in self.iteritems())
@@ -36,28 +28,10 @@ class Markathon(dict, basestring):
 
     __repr__ = __str__
 
-    def get_dtd(self):
-        if self.tag == 'html':
-            return ('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'
-                    ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n')
+    def before(self): pass
+    def after(self): pass
 
-
-def register_tags(globals, tags):
-    for tag in tags:
-        globals[tag] = partial(Markathon, tag.strip('_'))
-
-register_tags(globals(), TAGS)
-
-
-if __name__ == '__main__':
-    print Markathon('html', xmlns="http://www.w3.org/1999/xhtml")(
-        head(
-            meta(content='application/xhtml+xml;charset=utf-8'),
-            title("Holy smokes!")
-        ),
-        body(
-            img(src="test.img", alt="just a test"),
-            h1(_class="Chunk")("Grail"),
-            p("lorem")
-        )
-    )
+    @classmethod
+    def register_tags(self, globals, tags):
+        for tag in tags:
+            globals[tag] = partial(self, tag.strip('_'))
