@@ -1,0 +1,73 @@
+Markathon
+=========
+
+Markathon allows you to write XML-based languages in pure Python code.
+Currently it supports XHTML and RSS, and you can add other languages easily.
+
+    from markathon.xhtml import *
+
+
+    print html(
+        head(
+            meta(content='application/xhtml+xml;charset=utf-8'),
+            title("Ready, steady, GO!")
+        ),
+        body(
+            h1(_class="Chunk")("Grail"),
+            p("But seriously, who the hell doesn't hate Lorem Ipsum?")
+        )
+    )
+
+This will print the following output (*new line* characters were added
+manually for readability purposes):
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta content="application/xhtml+xml;charset=utf-8" />
+    <title>Ready, steady, GO!</title></head><body><h1 class="Chunk">Grail</h1>
+    <p>But seriously, who the hell doesn't hate Lorem Ipsum?</p></body></html>
+
+
+Get started
+-----------
+
+To work with Markathon, you must import the language tags you want to use:
+
+    # If you want to write XHTML code:
+    from markathon.xhtml import *
+    # But if you want write RSS code:
+    from markathon.rss import *
+
+`import *` allows you to import all tags automatically, and it's convenient in
+some cases. However, you might want to use other methods:
+
+    # For a clean global namespace, import tags individually:
+    from markathon.xhtml import html, head, body, p
+    # Or just import the language (very verbose at use!):
+    import markathon.xhtml
+
+Then you just use each tag like a function with its content as arguments:
+
+    p('Hello, ', 'world!')
+
+You can add attributes like this (note that `class` is a reserved word, you can't use it as an attribute name in Python. You can bypass this limitation by adding a `_` before the reserved word, Markathon will handle it gracefully):
+
+    p(id='paragraph_01', _class="important")('content here')
+
+here you go!
+
+
+Add your own languages
+----------------------
+
+You'll quickly want to use more languages than XHTML and RSS. I suggest you to
+look inside `xhtml.py` and `rss.py` to see how they work, the code is very
+simple to understand.
+
+
+------------------------------------------------------------------------------
+
+Markathon is based on **PyML** *(Python Markup Language)* by [@PepijnDeVos](http://twitter.com/pepijndevos).
+
+Questions, remarks, anything: [@hashmalech](http://twitter.com/hashmalech)
