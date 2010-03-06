@@ -1,6 +1,6 @@
 from functools import partial
 
-
+# XHTML tags. Should go to a more appropriate location.
 TAGS = """a abbr acronym address area b base bdo big blockquote body br button
 caption cite code col colgroup dd del dfn div dl dt em fieldset form h1 h2 h3
 h4 h5 h6 head hr html i img input ins kbd label legend li link map meta
@@ -24,13 +24,15 @@ class Markathon(dict, basestring):
         return str(self) + str(other)
 
     def __str__(self):
-        dtd = self.get_dtd() or ''
+        tag = self.tag
+        bt = self.get_dtd() or '' # before tag
+        at = '' # after tag
         body = ''.join(str(element) for element in self.body)
         attr = ''.join(' %s="%s"' % (key.strip('_'), value)
-                       for key, value in self.iteritems())
-        if not self.body and self.tag != 'script':
-            return "<%s%s />" % (self.tag, attr)
-        return "%s<%s%s>%s</%s>" % (dtd, self.tag, attr, body, self.tag)
+                        for key, value in self.iteritems())
+        if not self.body and tag != 'script':
+            return "<%(tag)s%(attr)s />" % locals()
+        return "%(bt)s<%(tag)s%(attr)s>%(body)s</%(tag)s>%(at)s" % locals()
 
     __repr__ = __str__
 
