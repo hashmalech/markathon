@@ -23,10 +23,10 @@ class Markathon(dict):
         attr = ''.join(' %s="%s"' % (key.strip('_'), value)
                         for key, value in self.iteritems())
         if not self.body and tag != 'script':
-            return "<%(tag)s%(attr)s />" % locals()
+            return "%(bt)s<%(tag)s%(attr)s/>%(at)s" % locals()
         return "%(bt)s<%(tag)s%(attr)s>%(body)s</%(tag)s>%(at)s" % locals()
 
-    # __repr__ = __str__
+    __repr__ = __str__
 
     def before(self): pass
     def after(self): pass
