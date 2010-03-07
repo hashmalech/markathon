@@ -18,7 +18,7 @@ class XHTML(Markathon):
 
 
 XHTML.register_tags(globals(), TAGS)
-html = partial(XHTML, 'html', xmlns="http://www.w3.org/1999/xhtml")
+XHTML.register_tag(globals(), 'html', xmlns="http://www.w3.org/1999/xhtml")
 
 
 if __name__ == '__main__':

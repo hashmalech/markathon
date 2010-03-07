@@ -15,7 +15,7 @@ class RSS(Markathon):
 
 
 RSS.register_tags(globals(), TAGS)
-rss = partial(RSS, 'rss', version="2.0")
+RSS.register_tag(globals(), 'rss', version="2.0")
 
 
 if __name__ == '__main__':

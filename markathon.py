@@ -34,3 +34,8 @@ class Markathon(dict):
     @classmethod
     def register_tags(cls, globals, tags):
         for tag in tags: globals[tag] = partial(cls, tag.strip('_'))
+
+    @classmethod
+    def register_tag(cls, globals, tag, *a, **k):
+        globals[tag] = partial(cls, tag.strip('_'), *a, **k)
+
