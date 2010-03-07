@@ -1,8 +1,8 @@
 from functools import partial
 
 
-class Markathon(dict, basestring):
-    def __init__(self, tag='', *body, **attr):
+class Markathon(dict):
+    def __init__(self, tag, *body, **attr):
         self.tag = tag
         self.body = body
         self.update(attr)
@@ -26,7 +26,7 @@ class Markathon(dict, basestring):
             return "<%(tag)s%(attr)s />" % locals()
         return "%(bt)s<%(tag)s%(attr)s>%(body)s</%(tag)s>%(at)s" % locals()
 
-    __repr__ = __str__
+    # __repr__ = __str__
 
     def before(self): pass
     def after(self): pass
