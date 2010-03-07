@@ -1,4 +1,4 @@
-from markathon import Markathon
+from markathon import Markathon, partial
 
 
 TAGS = """author category channel cloud comments copyright description docs
@@ -15,7 +15,7 @@ class RSS(Markathon):
 
 
 RSS.register_tags(globals(), TAGS)
-rss = rss(version="2.0")
+rss = partial(RSS, 'rss', version="2.0")
 
 
 if __name__ == '__main__':
