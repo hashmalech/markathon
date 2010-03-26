@@ -20,7 +20,7 @@ class Markathon(dict):
         tag = self.tag
         bt = self.before() or '' # before tag
         at = self.after() or '' # after tag
-        body = ''.join(str(element) for element in self.body)
+        body = ''.join(unicode(element) for element in self.body)
         attr = ''.join(' %s="%s"' % (key.strip('_'), value)
                         for key, value in self.iteritems())
         if not self.body and tag != 'script':
